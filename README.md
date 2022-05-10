@@ -2,5 +2,9 @@
 
 A simple stock/crypto tracker
 
-## Available Scripts
+## Tech Stack 
+- ReactJS.
+- Firebase.
+- Material UI. 
+
 
