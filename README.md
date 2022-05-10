@@ -7,4 +7,8 @@ A simple stock/crypto tracker
 - Firebase.
 - Material UI. 
 
-
+## How it works
+- Simply signup or login.
+- Add a new asset. 
+- Track your assets, fees, profits, total investment, and net worth. 
+- That's all. 
