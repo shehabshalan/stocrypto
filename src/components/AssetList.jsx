@@ -1,10 +1,10 @@
 import React from "react";
-import { Typography, Grid } from "@mui/material";
+import { Typography, Grid, Box } from "@mui/material";
 
 import AssetCard from "./AssetCard";
 function AssetList() {
   return (
-    <div>
+    <Box sx={{ marginBottom: "3rem" }}>
       <Typography variant="h5" align="left" sx={{ marginBottom: "2rem" }}>
         Assets list
       </Typography>
@@ -20,7 +20,7 @@ function AssetList() {
           <AssetCard />
         ))}
       </Grid>
-    </div>
+    </Box>
   );
 }
 
