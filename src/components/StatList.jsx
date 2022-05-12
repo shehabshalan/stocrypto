@@ -17,8 +17,8 @@ function StatList() {
         spacing={2}
         justifyContent="space-evenly"
       >
-        {stats.map((stat) => (
-          <StatCard stat={stat} />
+        {stats.map((stat, i) => (
+          <StatCard stat={stat} index={i} />
         ))}
       </Stack>
     </div>
