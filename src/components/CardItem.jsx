@@ -7,14 +7,17 @@ const Item = styled(Grid)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
 }));
-function CardItem({ item }) {
+function CardItem({ item, data }) {
   return (
     <Item item xs={12}>
       <Typography gutterBottom variant="subtitle2">
         {item}
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        0.03
+        {item === "Asset Value" && `$ ${data.asset_value}`}
+        {item === "Profit/Loss" && `$ ${data.profit_loss}`}
+        {item === "Price" && ` $ ${data.asset_price}`}
+        {item === "Quantity" && ` ${data.asset_quantity}`}
       </Typography>
     </Item>
   );

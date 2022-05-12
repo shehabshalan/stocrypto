@@ -7,19 +7,19 @@ import { Divider } from "@mui/material";
 import CardItem from "./CardItem";
 
 const cardItems = ["Quantity", "Price", "Asset Value", "Profit/Loss"];
-function AssetCard() {
+function AssetCard({ data }) {
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <CardContent>
           <Typography sx={{ fontWeight: "bold" }} variant="h5" align="center">
-            Bitcoin
+            {data.asset_name}
           </Typography>
         </CardContent>
         <Divider />
         <Grid container spacing={1} padding={2}>
           {cardItems.map((item) => (
-            <CardItem item={item} />
+            <CardItem item={item} data={data} />
           ))}
         </Grid>
       </Card>
