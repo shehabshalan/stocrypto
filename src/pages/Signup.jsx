@@ -8,8 +8,15 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useUserAuth } from "../context/UserAuthContext";
 
 function Signup() {
+  const { signUp, loading } = useUserAuth();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    signUp(data.get("email"), data.get("password"));
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -27,12 +34,7 @@ function Signup() {
         <Typography component="h1" variant="h5">
           Register an account
         </Typography>
-        <Box
-          component="form"
-          onSubmit={"handleSubmit"}
-          noValidate
-          sx={{ mt: 1 }}
-        >
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -56,7 +58,7 @@ function Signup() {
           <LoadingButton
             type="submit"
             fullWidth
-            loading={false}
+            loading={loading}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >

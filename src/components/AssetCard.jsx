@@ -3,8 +3,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { Divider } from "@mui/material";
+import { Divider, CardActions, IconButton } from "@mui/material";
 import CardItem from "./CardItem";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const cardItems = ["Quantity", "Price", "Asset Value", "Profit/Loss"];
 function AssetCard({ data }) {
@@ -22,6 +24,16 @@ function AssetCard({ data }) {
             <CardItem item={item} data={data} />
           ))}
         </Grid>
+        <Divider />
+
+        <CardActions>
+          <IconButton aria-label="add to favorites">
+            <DeleteIcon sx={{ color: "red" }} />
+          </IconButton>
+          <IconButton aria-label="share">
+            <EditIcon sx={{ color: "green" }} />
+          </IconButton>
+        </CardActions>
       </Card>
     </Grid>
   );
