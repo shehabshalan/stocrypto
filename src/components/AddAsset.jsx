@@ -49,8 +49,9 @@ function AddAsset() {
           bottom: 0,
           top: "auto",
           left: 0,
+          // left: "70%",
           right: 0,
-          marginBottom: "1rem",
+          marginBottom: "5rem",
         }}
       >
         <Fab color="primary" aria-label="add" onClick={handleOpen}>

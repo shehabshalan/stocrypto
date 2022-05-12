@@ -14,7 +14,7 @@ function AssetList() {
       <Grid
         container
         direction="row"
-        justifyContent="space-between"
+        justifyContent="flex-start"
         alignItems="center"
         spacing={2}
         columns={12}
