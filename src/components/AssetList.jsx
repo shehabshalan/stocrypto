@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Typography, Grid, Box } from "@mui/material";
+import DataContext from "../context/DataContext";
 
 import AssetCard from "./AssetCard";
 function AssetList() {
+  const { userData } = useContext(DataContext);
+
   return (
     <Box sx={{ marginBottom: "3rem" }}>
       <Typography variant="h5" align="left" sx={{ marginBottom: "2rem" }}>
@@ -16,8 +19,8 @@ function AssetList() {
         spacing={2}
         columns={12}
       >
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((video) => (
-          <AssetCard />
+        {userData.map((data) => (
+          <AssetCard data={data} />
         ))}
       </Grid>
     </Box>
