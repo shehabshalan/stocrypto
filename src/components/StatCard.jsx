@@ -12,17 +12,29 @@ const Item = styled(Paper)(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-function StatCard({ stat }) {
+
+const Heading = styled(Typography)(({ theme }) => ({
+  ...theme.typography.h6,
+  color: theme.palette.text.secondary,
+  marginBottom: theme.spacing(2),
+}));
+
+const SubHeading = styled(Typography)(({ theme }) => ({
+  ...theme.typography.h4,
+  color: theme.palette.text.primary,
+  fontWeight: "bold",
+  marginBottom: theme.spacing(2),
+}));
+
+const subheading = [670, 550, 120];
+function StatCard({ stat, index }) {
   return (
     <Item>
-      <Typography variant="h5" sx={{ marginBottom: 3 }}>
-        {stat}
-      </Typography>
-      <Typography variant="body2">{stat}</Typography>
+      <Heading>{stat}</Heading>
+      <SubHeading>${subheading[index]}</SubHeading>
     </Item>
   );
 }

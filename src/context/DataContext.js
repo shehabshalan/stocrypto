@@ -50,7 +50,6 @@ export const DataProvider = ({ children }) => {
             price: coin.current_price,
           }))
         );
-        console.log(coins);
       });
     //  eslint-disable-next-line
   }, []);
@@ -66,8 +65,9 @@ export const DataProvider = ({ children }) => {
       profit_loss: (totalSpent - pricePerAsset * quantity).toFixed(2),
     };
     setUserData([...userData, newUserData]);
-    console.log(userData);
-
+    setTotalSpent(0);
+    setQuantity(0);
+    setPricePerAsset(0);
     setOpen(false);
   };
 
