@@ -3,15 +3,10 @@ import Fab from "@mui/material/Fab";
 import Box from "@mui/material/Box";
 import AddIcon from "@mui/icons-material/Add";
 import Modal from "@mui/material/Modal";
-import {
-  Grid,
-  TextField,
-  Typography,
-  Autocomplete,
-  Button,
-} from "@mui/material";
-// import { LoadingButton } from "@mui/lab";
+import { Grid, TextField, Typography, Autocomplete } from "@mui/material";
 import DataContext from "../context/DataContext";
+import { LoadingButton } from "@mui/lab";
+import AlertMessage from "./AlertMessage";
 
 const style = {
   position: "absolute",
@@ -36,6 +31,7 @@ function AddAsset() {
     setAssetName,
     open,
     setOpen,
+    addLoading,
   } = useContext(DataContext);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -130,18 +126,20 @@ function AddAsset() {
               </Box>
             </Grid>
             <Grid item xs={12}>
-              <Button
+              <LoadingButton
                 fullWidth
                 variant="contained"
                 color="primary"
+                loading={addLoading}
                 type="submit"
               >
                 Add
-              </Button>
+              </LoadingButton>
             </Grid>
           </Grid>
         </Box>
       </Modal>
+      <AlertMessage />
     </Box>
   );
 }
