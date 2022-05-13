@@ -19,7 +19,8 @@ export function UserAuthContextProvider({ children }) {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate("/");
+        // navigate using window.location.href
+        window.location.href = "/";
         setLoading(false);
       })
       .catch((error) => {
@@ -49,9 +50,11 @@ export function UserAuthContextProvider({ children }) {
         setUser(
           localStorage.setItem("currentUser", JSON.stringify(currentuser))
         );
+        localStorage.setItem("userid", JSON.stringify(currentuser.uid));
       } else {
         setUser(null);
         localStorage.removeItem("currentUser");
+        localStorage.removeItem("userid");
       }
     });
     return () => {
