@@ -65,11 +65,7 @@ function Login() {
             Login
           </LoadingButton>
 
-          <Link
-            href="/register"
-            variant="body2"
-            style={{ textAlign: "center" }}
-          >
+          <Link href="/signup" variant="body2" style={{ textAlign: "center" }}>
             {"Don't have an account? Register an account"}
           </Link>
         </Box>
