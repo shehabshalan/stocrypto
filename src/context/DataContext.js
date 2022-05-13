@@ -1,39 +1,52 @@
 /* eslint-disable */
 import { createContext, useEffect, useState } from "react";
-
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  where,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db, auth } from "../firebase-config";
 const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
-  const dummyData = [
-    {
-      asset_name: "Bitcoin",
-      asset_quantity: 0.03,
-      asset_price: 28903,
-      asset_value: 1400,
-      profit_loss: 120,
-    },
-    {
-      asset_name: "Ethereum",
-      asset_quantity: 2,
-      asset_price: 2300,
-      asset_value: 1400,
-      profit_loss: 120,
-    },
-    {
-      asset_name: "Litecoin",
-      asset_quantity: 120,
-      asset_price: 40,
-      asset_value: 1400,
-      profit_loss: 120,
-    },
-  ];
+  const userCoinsCollectionRef = collection(db, "userCoins");
+  // get user from local storage
+
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userid")) || null
+  );
+  const q = query(userCoinsCollectionRef, where("userId", "==", user));
+
   const [coins, setCoins] = useState(null);
   const [totalSpent, setTotalSpent] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [pricePerAsset, setPricePerAsset] = useState(0);
   const [assetName, setAssetName] = useState("");
-  const [userData, setUserData] = useState(dummyData);
+  const [userData, setUserData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    try {
+      const unsub = onSnapshot(q, (snapshot) => {
+        let ucoins = [];
+        snapshot.forEach((doc) => {
+          ucoins.push({ ...doc.data(), id: doc.id });
+        });
+        setUserData(ucoins);
+        console.log(ucoins);
+      });
+      return () => unsub();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     setTotalSpent((quantity * pricePerAsset).toFixed(2));
@@ -54,21 +67,43 @@ export const DataProvider = ({ children }) => {
     //  eslint-disable-next-line
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newUserData = {
       asset_name: assetName,
-      asset_quantity: quantity,
-      asset_price: pricePerAsset,
-      asset_value: totalSpent,
-      profit_loss: (totalSpent - pricePerAsset * quantity).toFixed(2),
+      asset_quantity: parseFloat(quantity),
+      purchase_price_per_asset: pricePerAsset,
+      asset_value: parseFloat(totalSpent),
+      profit_loss: parseFloat(0),
+      userId: auth.currentUser.uid,
     };
-    setUserData([...userData, newUserData]);
-    setTotalSpent(0);
-    setQuantity(0);
-    setPricePerAsset(0);
-    setOpen(false);
+
+    setAddLoading(true);
+    try {
+      await addDoc(userCoinsCollectionRef, newUserData);
+      setTotalSpent(0);
+      setQuantity(0);
+      setPricePerAsset(0);
+      setOpen(false);
+      setAddLoading(false);
+      setSuccess(true);
+    } catch (err) {
+      console.log(err.message);
+      setAddLoading(false);
+      setError(true);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const coinDoc = doc(db, "userCoins", id);
+      await deleteDoc(coinDoc);
+      setSuccess(true);
+    } catch (err) {
+      console.log(err.message);
+      setError(true);
+    }
   };
 
   return (
@@ -86,6 +121,12 @@ export const DataProvider = ({ children }) => {
         userData,
         open,
         setOpen,
+        addLoading,
+        success,
+        error,
+        setError,
+        setSuccess,
+        handleDelete,
       }}
     >
       {children}
