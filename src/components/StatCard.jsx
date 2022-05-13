@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import DataContext from "../context/DataContext";
+import getSum from "../helper/getSum";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -29,8 +31,14 @@ const SubHeading = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-const subheading = [670, 550, 120];
 function StatCard({ stat, index }) {
+  const { userData } = useContext(DataContext);
+  const subheading = [
+    getSum(userData, "asset_value"),
+    getSum(userData, "asset_value"),
+    0,
+  ];
+
   return (
     <Item>
       <Heading>{stat}</Heading>
