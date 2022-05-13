@@ -16,7 +16,8 @@ function CardItem({ item, data }) {
       <Typography variant="body2" color="text.secondary">
         {item === "Asset Value" && `$ ${data.asset_value}`}
         {item === "Profit/Loss" && `$ ${data.profit_loss}`}
-        {item === "Price" && ` $ ${data.asset_price}`}
+        {item === "Purchase Price Per Asset" &&
+          ` $ ${data.purchase_price_per_asset}`}
         {item === "Quantity" && ` ${data.asset_quantity}`}
       </Typography>
     </Item>

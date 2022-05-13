@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
@@ -7,9 +7,16 @@ import { Divider, CardActions, IconButton } from "@mui/material";
 import CardItem from "./CardItem";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import DataContext from "../context/DataContext";
 
-const cardItems = ["Quantity", "Price", "Asset Value", "Profit/Loss"];
+const cardItems = [
+  "Quantity",
+  "Purchase Price Per Asset",
+  "Asset Value",
+  "Profit/Loss",
+];
 function AssetCard({ data }) {
+  const { handleDelete } = useContext(DataContext);
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -27,7 +34,10 @@ function AssetCard({ data }) {
         <Divider />
 
         <CardActions>
-          <IconButton aria-label="add to favorites">
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => handleDelete(data.id)}
+          >
             <DeleteIcon sx={{ color: "red" }} />
           </IconButton>
           <IconButton aria-label="share">
