@@ -9,12 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DataContext from "../context/DataContext";
 
-const cardItems = [
-  "Quantity",
-  "Purchase Price Per Asset",
-  "Asset Value",
-  "Profit/Loss",
-];
+const cardItems = ["Quantity", "Asset Value", "Profit/Loss"];
 function AssetCard({ data }) {
   const { handleDelete } = useContext(DataContext);
   return (

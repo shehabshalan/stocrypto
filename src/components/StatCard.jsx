@@ -33,11 +33,7 @@ const SubHeading = styled(Typography)(({ theme }) => ({
 
 function StatCard({ stat, index }) {
   const { userData } = useContext(DataContext);
-  const subheading = [
-    getSum(userData, "asset_value"),
-    getSum(userData, "asset_value"),
-    0,
-  ];
+  const subheading = [getSum(userData, "asset_value"), "-", 0];
 
   return (
     <Item>
