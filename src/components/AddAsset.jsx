@@ -27,6 +27,8 @@ function AddAsset() {
     setQuantity,
     pricePerAsset,
     setPricePerAsset,
+    assetKey,
+    setAssetKey,
     handleSubmit,
     setAssetName,
     open,
@@ -77,6 +79,7 @@ function AddAsset() {
                 onChange={(event, value) => {
                   setPricePerAsset(value.price);
                   setAssetName(value.label);
+                  setAssetKey(value.key);
                 }}
                 renderInput={(params) => (
                   <TextField {...params} label="Asset" />
