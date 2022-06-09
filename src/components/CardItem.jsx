@@ -31,6 +31,7 @@ function CardItem({ item, data }) {
 
   useEffect(() => {
     getCurrentPriceByCoinKey(asset_key);
+    //  eslint-disable-next-line
   }, [asset_key]);
 
   return (
