@@ -3,7 +3,13 @@ import Fab from "@mui/material/Fab";
 import Box from "@mui/material/Box";
 import AddIcon from "@mui/icons-material/Add";
 import Modal from "@mui/material/Modal";
-import { Grid, TextField, Typography, Autocomplete } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Typography,
+  Autocomplete,
+  Tooltip,
+} from "@mui/material";
 import DataContext from "../context/DataContext";
 import { LoadingButton } from "@mui/lab";
 import AlertMessage from "./AlertMessage";
@@ -20,13 +26,13 @@ const style = {
   p: 4,
 };
 function AddAsset() {
-  // position: "fixed", bottom: 4, right: 100, m: 1
   const {
     coins,
     totalSpent,
     setQuantity,
     pricePerAsset,
     setPricePerAsset,
+    setAssetKey,
     handleSubmit,
     setAssetName,
     open,
@@ -38,22 +44,17 @@ function AddAsset() {
 
   return (
     <Box>
-      <Box
-        sx={{
-          textAlign: "center",
-          position: "fixed",
-          bottom: 0,
-          top: "auto",
-          left: 0,
-          // left: "70%",
-          right: 0,
-          marginBottom: "5rem",
-        }}
-      >
-        <Fab color="primary" aria-label="add" onClick={handleOpen}>
-          <AddIcon />
-        </Fab>
-      </Box>
+      <Tooltip title="Add Asset">
+        <Box
+          sx={{
+            marginBottom: "2rem",
+          }}
+        >
+          <Fab color="primary" aria-label="add" onClick={handleOpen}>
+            <AddIcon />
+          </Fab>
+        </Box>
+      </Tooltip>
 
       <Modal
         open={open}
@@ -77,6 +78,7 @@ function AddAsset() {
                 onChange={(event, value) => {
                   setPricePerAsset(value.price);
                   setAssetName(value.label);
+                  setAssetKey(value.key);
                 }}
                 renderInput={(params) => (
                   <TextField {...params} label="Asset" />

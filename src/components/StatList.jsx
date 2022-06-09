@@ -1,15 +1,29 @@
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import AddAsset from "./AddAsset";
 import StatCard from "./StatCard";
 
-const stats = ["Total Investments", "Net Worth", "Profit/Loss"];
+const stats = ["Total Investments", "Profit/Loss"];
 function StatList() {
   return (
     <div style={{ marginTop: "3rem" }}>
-      <Typography variant="h5" sx={{ marginBottom: "2rem" }}>
-        Overview
-      </Typography>
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={2}
+      >
+        <Grid item>
+          <Typography variant="h5" sx={{ marginBottom: "2rem" }}>
+            Overview
+          </Typography>
+        </Grid>
+        <Grid item>
+          <AddAsset />
+        </Grid>
+      </Grid>
       <Stack
         direction={{ xs: "column", sm: "row" }}
         divider={<Divider orientation="vertical" flexItem />}

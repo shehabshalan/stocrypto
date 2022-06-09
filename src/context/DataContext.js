@@ -31,6 +31,7 @@ export const DataProvider = ({ children }) => {
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [assetKey, setAssetKey] = useState("");
 
   useEffect(() => {
     try {
@@ -51,19 +52,24 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     setTotalSpent((quantity * pricePerAsset).toFixed(2));
   }, [quantity, pricePerAsset]);
-  const URL =
+
+  // gets all coins for add asset function
+  const GET_COINS_URL =
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false";
+
   useEffect(() => {
-    fetch(URL)
+    fetch(GET_COINS_URL)
       .then((res) => res.json())
       .then((data) => {
         setCoins(
           data.map((coin) => ({
             label: coin.name,
             price: coin.current_price,
+            key: coin.id,
           }))
         );
       });
+
     //  eslint-disable-next-line
   }, []);
 
@@ -75,6 +81,7 @@ export const DataProvider = ({ children }) => {
       asset_quantity: parseFloat(quantity),
       purchase_price_per_asset: pricePerAsset,
       asset_value: parseFloat(totalSpent),
+      asset_key: assetKey,
       profit_loss: parseFloat(0),
       userId: auth.currentUser.uid,
     };
@@ -116,6 +123,8 @@ export const DataProvider = ({ children }) => {
         setQuantity,
         pricePerAsset,
         setPricePerAsset,
+        assetKey,
+        setAssetKey,
         setAssetName,
         handleSubmit,
         userData,
